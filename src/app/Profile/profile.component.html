@@ -1,0 +1,80 @@
+
+<mat-card><form class="formwidth"  #profileForm="ngForm">
+    <mat-accordion>
+    <table class="fullwidth" cellspacing="0">
+        <mat-expansion-panel  class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <mat-expansion-panel-header>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-user"></span> Profile Details</h3></mat-panel-title>
+        </mat-expansion-panel-header>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Name"  id="name" [(ngModel)]="profiledata.name" name="name">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                   <mat-select placeholder="Type" [(ngModel)]="profiledata.type" name='type'>
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Metric"  id="metric" [(ngModel)]="profiledata.metric" name="metric">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Frequency"  id="frequency" [(ngModel)]="profiledata.frequency" name="frequency">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Value"  id="value" [(ngModel)]="profiledata.value" name="value">
+                </mat-form-field>
+            </td>
+        </tr>
+        
+        <p>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button> 
+        </p>
+        <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()">Add Properties</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+    </table>
+    <table  class="fullwidth" cellspacing="0">
+        <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+        <mat-expansion-panel-header>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span> Profile Properties</h3></mat-panel-title>
+        </mat-expansion-panel-header>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Name"  id="name" [(ngModel)]="profilepropertydata.name" name="name">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Value"  id="value" [(ngModel)]="profilepropertydata.value" name="value">
+                </mat-form-field>
+            </td>
+            
+        </tr>
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">End</button>
+        </mat-action-row>
+        <p>
+        <button mat-raised-button color="primary" (click)="addProperty()">Add Property</button> 
+        </p>
+        </mat-expansion-panel>
+    </table>
+    </mat-accordion>
+</form></mat-card>
+ 
+ 
