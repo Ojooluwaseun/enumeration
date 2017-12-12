@@ -1,0 +1,60 @@
+<div class="container">
+ 
+  <nav class="navbar navbar-default">
+    <div class="custom navbar-header">
+      <a href="#/"><img src="images/enumeration.png" class="logo" /></a>
+    </div>
+    <ul class="nav nav-pills">
+      <li>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>Tax Payer</a>
+        <div class="dropdown-menu">
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/payerform">Payer Registration</a>
+            </li>
+            <li routerLinkActive="active"> 
+              <a class="dropdown-item" routerLink="/allpayer">All Payers</a>
+            </li>
+        </div>
+      </li>
+      <li>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-home"></span>Property</a>
+        <div class="dropdown-menu">
+            <li routerLinkActive="active"> 
+              <a class="dropdown-item" routerLink="/allasset">All Property</a>
+            </li>
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/assetform">Building Registration</a>
+            </li>
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/businessform">Business Registration</a>
+            </li>
+        </div>
+      </li>
+      <li>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>Profile</a>
+        <div class="dropdown-menu">
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/profileform">Create Profile</a>
+            </li>
+            <li routerLinkActive="active"> 
+              <a class="dropdown-item" routerLink="/allprofile">All Profiles</a>
+            </li>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  
+  <router-outlet></router-outlet>
+  
+</div>
+
+
+<!--<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tax Payers</a>
+    <div class="dropdown-menu">
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" routerLinkActive="active" routerLink="/allpayer"><span class="glyphicon glyphicon-user"></span> All Payer</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" routerLinkActive="active" routerLink="/payerform"><span class="glyphicon glyphicon-user"></span> Register Payer</a>
+    </div>
+</li>-->

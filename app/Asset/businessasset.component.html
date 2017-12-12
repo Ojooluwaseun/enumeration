@@ -1,0 +1,169 @@
+
+<mat-card><form class="formwidth"  #businessForm="ngForm">
+    <mat-accordion>
+    <table class="fullwidth" cellspacing="0">
+        <mat-expansion-panel class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <mat-expansion-panel-header>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-home"></span> Business Details</h3></mat-panel-title>
+        </mat-expansion-panel-header>
+        <tr>
+            <td> 
+               <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Owner's TIN"  id="ownerid" required [(ngModel)]="businessdata.ownerid" name="ownerid" #ownerid="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                    <div  [hidden]="ownerid.valid || ownerid.pristine" class="alert alert-danger">
+                        Owner's TIN is Required
+                    </div>
+                </mat-form-field>  
+            </td>
+            <td>
+                
+                <div *ngFor="let d of data | async">  
+                    <h5 *ngIf="d.tin == businessdata.ownerid">{{d.firstname}} {{d.surname}} {{d.middlename}}</h5>  
+                </div>
+                  
+
+            </td>
+        </tr>
+            
+        <tr> 
+            <td>
+                <mat-form-field class="fullwidth">
+                    <mat-select placeholder="LGA" [(ngModel)]="businessdata.lga" name='lga'>
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let lga of lgas" [value]="lga">{{lga}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Ward"  id="ward" [(ngModel)]="businessdata.ward" name="ward">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Town"  id="town" [(ngModel)]="businessdata.town" name="town">
+                </mat-form-field>
+            </td>
+            
+        </tr>
+        
+        <tr>
+              <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Business Name"  id="business_name" [(ngModel)]="businessdata.business_name" name="business_name">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                     <input matInput type="text" placeholder="Category"  id="category" [(ngModel)]="businessdata.category" name="category">
+                </mat-form-field>
+            </td>
+
+             <td>
+                <mat-form-field class="fullwidth">
+                     <input matInput type="text" placeholder="Operation"  id="operation" [(ngModel)]="businessdata.operation" name="operation">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                     <input matInput type="text" placeholder="Sector"  id="sector" [(ngModel)]="businessdata.sector" name="sector">
+                </mat-form-field>
+            </td>
+
+            <td>
+                <mat-form-field class="fullwidth">
+                     <input matInput type="text" placeholder="Structure"  id="structure" [(ngModel)]="businessdata.structure" name="structure">
+                </mat-form-field>
+            </td>
+             <td>
+                <mat-form-field class="fullwidth">
+                     <input matInput type="text" placeholder="Subsector"  id="subsector" [(ngModel)]="businessdata.subsector" name="subsector">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Value"  id="value" [(ngModel)]="businessdata.value" name="value">
+                </mat-form-field>
+            </td>
+             <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Business Type"  id="business_type" [(ngModel)]="businessdata.business_type" name="business_type">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr> 
+            <label>Location</label>
+             <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Latitude"  id="latitude" [(ngModel)]="businessdata.latitude" name="latitude">
+                </mat-form-field>
+            </td>
+             <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Longitude"  id="longitude" [(ngModel)]="businessdata.longitude" name="longitude">
+                </mat-form-field>
+            </td>
+        </tr>
+        <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+    </table>  
+    <table  class="fullwidth" cellspacing="0">
+        <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+        <mat-expansion-panel-header>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span> Address</h3></mat-panel-title>
+        </mat-expansion-panel-header>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="House Number"  id="house_no" [(ngModel)]="businessdata.house_no" name="house_no">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Plot Number"  id="plot_no" [(ngModel)]="businessdata.plot_no" name="plot_no">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Block Number"  id="block_no" [(ngModel)]="businessdata.block_no" name="block_no">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type="text" placeholder="Flat Number"  id="flat_no" [(ngModel)]="businessdata.flat_no" name="flat_no">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <textarea matInput type="text" placeholder="Street Name"  id="street_name" [(ngModel)]="businessdata.street_name" name="street_name"></textarea>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <textarea matInput placeholder="District Name"  id="district_name" [(ngModel)]="businessdata.district_name" name="district_name"></textarea>
+                </mat-form-field>
+            </td>
+
+
+        </tr>
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">End</button>
+        </mat-action-row>
+        </mat-expansion-panel>
+    </table> 
+    <p>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button> 
+    </p>
+    </mat-accordion>
+</form></mat-card>
+ 
+ 

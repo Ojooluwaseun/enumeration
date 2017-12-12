@@ -1,0 +1,41 @@
+<mat-card>
+<div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+<div>
+    <mat-table [dataSource]= "dataSource">
+        <ng-container matColumnDef="ownerid">
+             <mat-header-cell *matHeaderCellDef> Owner</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.ownerid}}</mat-cell>
+         </ng-container>
+         <ng-container matColumnDef="lga">
+             <mat-header-cell *matHeaderCellDef> LGA</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.lga}}</mat-cell>
+         </ng-container>
+         <ng-container matColumnDef="ward">
+             <mat-header-cell *matHeaderCellDef> Ward</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.ward}}</mat-cell>
+         </ng-container>
+             <ng-container matColumnDef="town">
+             <mat-header-cell *matHeaderCellDef> Town</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.town}}</mat-cell>
+         </ng-container>
+         <ng-container matColumnDef="building_purpose">
+             <mat-header-cell *matHeaderCellDef> Building Purpose</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.building_purpose}}</mat-cell>
+         </ng-container>
+        <ng-container matColumnDef="building_type">
+             <mat-header-cell *matHeaderCellDef>Building Type</mat-header-cell>
+             <mat-cell *matCellDef="let asset"> {{asset.building_type}}</mat-cell>
+         </ng-container>
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        
+    </mat-table>
+</div>
+<mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[2, 5, 10, 20]">
+</mat-paginator>
+</mat-card>
