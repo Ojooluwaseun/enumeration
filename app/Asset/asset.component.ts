@@ -20,7 +20,6 @@ import { Observable } from 'rxjs/Observable';
 export class AssetComponent implements OnInit {
   step = 0;
   assetdata = new AssetData;
-  data:  Observable<Payer[]>
 
   profiles: Observable<Profile[]>
   profile_ids = []
@@ -51,25 +50,26 @@ export class AssetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data =  this.payerService.getPayerbyTin(this.assetdata.ownerid);
-    console.log(this.data)
-  
     this.profiles = this.assetService.getProfile();
     console.log(this.profiles)
 
   }
  
    
-  ngOnChanges(){
+  getPayer(){
+    this.payerService.getPayerbyTin(this.assetdata.ownerid)
 
   }
   
 
   onSubmit(){
+    this.assetdata.reg_date = this.assetdata.registered_date.getFullYear() 
+    + '-' + ('0' + (this.assetdata.registered_date.getMonth()+1)).slice(-2) 
+    + '-' + ('0' + this.assetdata.registered_date.getDate()).slice(-2);
+
     this.assetService.addAsset(this.assetdata)
-    this.assetService.displayAsset()
-    
-  }
+}
+
 
 
   addAssetProfile(){

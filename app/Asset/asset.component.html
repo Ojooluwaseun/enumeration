@@ -1,14 +1,15 @@
-<mat-card><form class="formwidth"  #assetForm="ngForm">
+<mat-card style="background-color:#787878"><form class="formwidth"  #assetForm="ngForm">
     <mat-accordion>
     <table class="fullwidth" cellspacing="0">
-        <mat-expansion-panel class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <div *ngIf = "!assetService.assetid">
+        <mat-expansion-panel  style="background-color:#e1e2dc" class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
         <mat-expansion-panel-header>
         <mat-panel-title><h3><span class="glyphicon glyphicon-home"></span> Building Details</h3></mat-panel-title>
         </mat-expansion-panel-header>
         <tr>
             <td> 
                <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Owner's TIN"  id="ownerid" required [(ngModel)]="assetdata.ownerid" name="ownerid" #ownerid="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
+                    <input matInput type="text" placeholder="Owner's TIN"  id="ownerid" required [(ngModel)]="assetdata.ownerid" (blur)="getPayer()" name="ownerid" #ownerid="ngModel" [ngModelOptions]="{updateOn: 'blur'}">
                     <div  [hidden]="ownerid.valid || ownerid.pristine" class="alert alert-danger">
                         Owner's TIN is Required
                     </div>
@@ -16,8 +17,8 @@
             </td>
             <td>
                 
-                <div *ngFor="let d of data | async">  
-                    <h5 *ngIf="d.tin == assetdata.ownerid">{{d.firstname}} {{d.surname}} {{d.middlename}}</h5>  
+                <div>  
+                    <h5 *ngIf="assetdata.ownerid">{{payerService.firstname}} {{payerService.surname}} {{payerService.middlename}}</h5> 
                 </div>
             </td>
            
@@ -97,8 +98,15 @@
                     <input matInput type="text" placeholder="Value"  id="value" [(ngModel)]="assetdata.value" name="value">
                 </mat-form-field>
             </td>
+            <td>
+            <mat-form-field class="fullwidth">
+                <input matInput [matDatepicker]="picker" placeholder="Registered Date" [(ngModel)]="assetdata.registered_date" name="dob">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </td>
         </tr>
-        <tr> 
+        <tr>
             <label>Location</label>
              <td>
                 <mat-form-field class="fullwidth">
@@ -110,64 +118,69 @@
                     <input matInput type="text" placeholder="Longitude"  id="longitude" [(ngModel)]="assetdata.longitude" name="longitude">
                 </mat-form-field>
             </td>
-        </tr>
-        <mat-action-row>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-        </mat-action-row>
-    </mat-expansion-panel>
-    </table>  
-    <table  class="fullwidth" cellspacing="0">
-        <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-        <mat-expansion-panel-header>
-        <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span> Address</h3></mat-panel-title>
-        </mat-expansion-panel-header>
+        </tr> 
+        <h3><span class="glyphicon glyphicon-map-marker"></span> Address</h3>
         <tr>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="House Number"  id="house_no" [(ngModel)]="assetdata.house_no" name="house_no">
+                    <input matInput type="text" placeholder="House Number"  id="house_no" [(ngModel)]="assetdata.houseNo" name="house_no">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Plot Number"  id="plot_no" [(ngModel)]="assetdata.plot_no" name="plot_no">
+                    <input matInput type="text" placeholder="Plot Number"  id="plot_no" [(ngModel)]="assetdata.plotNo" name="plot_no">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Block Number"  id="block_no" [(ngModel)]="assetdata.block_no" name="block_no">
+                    <input matInput type="text" placeholder="Block Number"  id="block_no" [(ngModel)]="assetdata.blockNo" name="blockNo">
                 </mat-form-field>
             </td>
         </tr>
         <tr>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Flat Number"  id="flat_no" [(ngModel)]="assetdata.flat_no" name="flat_no">
+                    <input matInput type="text" placeholder="Flat Number"  id="flat_no" [(ngModel)]="assetdata.flatNo" name="flatNo">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <textarea matInput type="text" placeholder="Street Name"  id="street_name" [(ngModel)]="assetdata.street_name" name="street_name"></textarea>
+                    <textarea matInput type="text" placeholder="Street Name"  id="street_name" [(ngModel)]="assetdata.streetName" name="street_name"></textarea>
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <textarea matInput placeholder="District Name"  id="district_name" [(ngModel)]="assetdata.district_name" name="district_name"></textarea>
+                    <textarea matInput placeholder="District Name"  id="district_name" [(ngModel)]="assetdata.districtName" name="district_name"></textarea>
                 </mat-form-field>
             </td>
 
 
         </tr>
         <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-raised-button color="primary" (click)="nextStep()" (click)="onSubmit()">Submit</button>
+            <button mat-raised-button color="primary" (click)="onSubmit(nextStep())" >Submit</button>
         </mat-action-row>
         </mat-expansion-panel>
+        </div>
     </table>
     <table  class="fullwidth" cellspacing="0">
-        <mat-expansion-panel class="panelwidth" [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
+        <div *ngIf = "assetService.assetid">
+        <mat-expansion-panel class="panelwidth" style="background-color:#e6e8f7" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
         <mat-expansion-panel-header>
         <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span>Profile Asset</h3></mat-panel-title>
         </mat-expansion-panel-header>
+         <h3> Asset Details</h3>
+                <tr>
+                    <td><h5><strong>OWNER'S TIN:</strong> {{assetService.ownerid}}</h5></td>
+                    <td><h5><strong>ASSET TYPE:</strong> {{assetService.type}}</h5></td> 
+                </tr>
+                <tr>
+                    <td><h5><strong>LGA:</strong> {{assetService.lga}}</h5></td>
+                    <td><h5><strong>WARD:</strong> {{assetService.ward}}</h5></td>
+                </tr>
+                <tr>
+                    <td><h5><strong>BUILDING TYPE:</strong> {{assetService.building_type}}</h5></td>
+                    <td><h5><strong>REGISTERED DATE:</strong> {{assetService.registered_date}}</h5></td>
+                </tr>
         <tr>
           <td>
                 <mat-form-field class="fullwidth">
@@ -180,9 +193,10 @@
         </tr>
         <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button-raised color="primary" (click)="addAssetProfile()">Add Profile</button>
+            <button mat-raised-button color="primary" (click)="addAssetProfile()">Add Profile</button>
         </mat-action-row>
         </mat-expansion-panel>
+         </div>
     </table>
     </mat-accordion>
     </form> 

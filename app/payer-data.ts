@@ -19,12 +19,12 @@ export class PayerData {
     public employstatus?: string,
     public email?: string,
     public phone?: string,
-    public house_no?: string,
-    public plot_no?: string,
-    public block_no?: string,
-    public flat_no?: string,
-    public street_name?: string,
-    public district_name?: string,
+    public houseNo?: string,
+    public plotNo?: string,
+    public blockNo?: string,
+    public flatNo?: string,
+    public streetName?: string,
+    public districtName?: string,
 
     
     public lgas = ['Agege', 'Ajeromi Ifelodun', 'Alimosho', 'Amuwo Odofin', 'Apapa', 'Badagry', 'Kosofe', 'Mushin', 'Oshodi Isolo', 'Ojo',  'Ikorodu', 'Surulere', 'Ifako-Ijaye', 'Shomolu', 'Amuwo-Odofin', 'Lagos Mainland', 'Ikeja', 'Eti-osa', 'Lagos Island', 'Epe', 'Ibeju Lekki'],    
@@ -43,4 +43,13 @@ export interface Payer {
     middlename: string;
     tin: string;
     phone: string;
+    email: string;
+    gender: string;
+    dob: string;
+    maritalstatus: string;
+    occupation: string;
+    stateoforigin: string;
+    lgaoforigin: string;
+    items: Payer[];
+    total_count: number;
 }

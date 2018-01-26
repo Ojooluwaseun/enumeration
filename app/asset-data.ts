@@ -1,4 +1,3 @@
-import { Profile } from './profile-data';
 
 export class AssetData{
     public ownerid?: string;
@@ -13,15 +12,16 @@ export class AssetData{
     public value?: number;
     public latitude?: number;
     public longitude?: number;
+    public registered_date?: Date;
     public houseNo?: string;
     public plotNo?: string;
     public blockNo?: string;
     public flatNo?: string;
     public streetName?: string;
     public districtName?: string;
-    
+    public reg_date? : string;
 
-
+    public assetid? : number;
     public profile?: any;
 
     public lgas = ['Agege', 'Ajeromi Ifelodun', 'Alimosho', 'Amuwo Odofin', 'Apapa', 'Badagry', 'Kosofe', 'Mushin', 'Oshodi Isolo', 'Ojo',  'Ikorodu', 'Surulere', 'Ifako-Ijaye', 'Shomolu', 'Amuwo-Odofin', 'Lagos Mainland', 'Ikeja', 'Eti-osa', 'Lagos Island', 'Epe', 'Ibeju Lekki'];
@@ -30,6 +30,7 @@ export class AssetData{
     public buildingoccupancies? = ['Occupied', 'Not Occupied'];
     public occupancytypes? = ['Owner', 'Tenants'];
     public buildingpurposes? = ['Residential', 'Commercial', 'Residential/Commercial'];
+
     }
 
 
@@ -38,7 +39,8 @@ export interface Asset{
     id: number;
     lga: string;
     ward: string;
-    town: string;
+    registered_date: string;
+    type: string;
     building_purpose: string;
     building_type: string;
     

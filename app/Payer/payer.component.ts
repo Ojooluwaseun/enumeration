@@ -23,6 +23,8 @@ export class PayerComponent implements OnInit {
 
   constructor(private payerService: PayerService) {
   }
+  
+
   setStep(index: number) {
     this.step = index;
   }
@@ -39,6 +41,7 @@ export class PayerComponent implements OnInit {
 
   }
   onSubmit() {
-    this.payerService.addPayer(this.payerdata);
+    this.payerService.addPayer(this.payerdata)
+    
   }
 }

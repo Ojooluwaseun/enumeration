@@ -13,12 +13,18 @@ export class BusinessData{
     public value?: number;
     public latitude?: number;
     public longitude?: number;
-    public house_no?: string;
-    public plot_no?: string;
-    public block_no?: string;
-    public flat_no?: string;
-    public street_name?: string;
-    public district_name?: string;
+    public registered_date?: Date;
+    public houseNo?: string;
+    public plotNo?: string;
+    public blockNo?: string;
+    public flatNo?: string;
+    public streetName?: string;
+    public districtName?: string;
+    public reg_date? : string;
+
+    
+    public assetid? : number;
+    public profile?: any;
 
     public lgas = ['Agege', 'Ajeromi Ifelodun', 'Alimosho', 'Amuwo Odofin', 'Apapa', 'Badagry', 'Kosofe', 'Mushin', 'Oshodi Isolo', 'Ojo',  'Ikorodu', 'Surulere', 'Ifako-Ijaye', 'Shomolu', 'Amuwo-Odofin', 'Lagos Mainland', 'Ikeja', 'Eti-osa', 'Lagos Island', 'Epe', 'Ibeju Lekki'];
 }

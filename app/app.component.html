@@ -1,7 +1,7 @@
 <div class="container">
  
-  <nav class="navbar navbar-default">
-    <div class="custom navbar-header">
+  <nav class="navbar navbar-default" style="background-color:#3c3c3c;">
+    <div class="custom navbar-header" >
       <a href="#/"><img src="images/enumeration.png" class="logo" /></a>
     </div>
     <ul class="nav nav-pills">
@@ -31,13 +31,32 @@
         </div>
       </li>
       <li>
-      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>Profile</a>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>Profile</a>
         <div class="dropdown-menu">
             <li routerLinkActive="active">
               <a class="dropdown-item" routerLink="/profileform">Create Profile</a>
             </li>
             <li routerLinkActive="active"> 
               <a class="dropdown-item" routerLink="/allprofile">All Profiles</a>
+            </li>
+            <li routerLinkActive="active"> 
+              <a class="dropdown-item" routerLink="/assetprofile">Profile Asset</a>
+            </li>
+        </div>
+      </li>
+      <li>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-briefcase"></span>Revenue Item</a>
+        <div class="dropdown-menu">
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/revenueform">Create Revenue Item</a>
+            </li>
+        </div>
+      </li>
+      <li>
+      <a class="nav nav-pills" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-book"></span>Assessment</a>
+        <div class="dropdown-menu">
+            <li routerLinkActive="active">
+              <a class="dropdown-item" routerLink="/assessmentform">Assessment/Billing</a>
             </li>
         </div>
       </li>

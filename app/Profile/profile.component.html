@@ -1,10 +1,11 @@
 
-<mat-card><form class="formwidth"  #profileForm="ngForm">
+<mat-card style="background-color:#787878"><form class="formwidth"  #profileForm="ngForm">
     <mat-accordion>
     <table class="fullwidth" cellspacing="0">
-        <mat-expansion-panel  class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <div *ngIf = "!profileService.profile_id">
+        <mat-expansion-panel  class="panelwidth" style="background-color:#e1e2dc" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
         <mat-expansion-panel-header>
-        <mat-panel-title><h3><span class="glyphicon glyphicon-user"></span> Profile Details</h3></mat-panel-title>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-tasks"></span> Profile Details</h3></mat-panel-title>
         </mat-expansion-panel-header>
         <tr>
             <td>
@@ -40,18 +41,27 @@
         </tr>
         
         <p>
-        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button> 
+        <button mat-raised-button color="primary" (click)="onSubmit(nextStep())">Submit</button> 
         </p>
-        <mat-action-row>
-            <button mat-button color="primary" (click)="nextStep()">Add Properties</button>
-        </mat-action-row>
     </mat-expansion-panel>
+    </div>
     </table>
     <table  class="fullwidth" cellspacing="0">
-        <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+        <div *ngIf = "profileService.profile_id">
+        <mat-expansion-panel class="panelwidth" style="background-color:#e6e8f7" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
         <mat-expansion-panel-header>
-        <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span> Profile Properties</h3></mat-panel-title>
+        <mat-panel-title><h3><span class="glyphicon glyphicon-tasks"></span> Profile Properties</h3></mat-panel-title>
         </mat-expansion-panel-header>
+        <h4>Profile Details</h4>
+                <tr>
+                    <td><h5><strong>NAME:</strong> {{profileService.name}}</h5></td>
+                    <td><h5><strong>TYPE:</strong> {{profileService.type}}</h5></td> 
+                </tr>
+                <tr>
+                    <td><h5><strong>METRIC:</strong> {{profileService.metric}}</h5></td>
+                    <td><h5><strong>FREQUENCY:</strong> {{profileService.frequency}}</h5></td>
+                    <td><h5><strong>VALUE:</strong> {{profileService.value}}</h5></td>
+                </tr>
         <tr>
             <td>
                 <mat-form-field class="fullwidth">
@@ -67,12 +77,10 @@
         </tr>
         <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">End</button>
+             <button mat-raised-button color="primary" (click)="addProperty()">Add Property</button>
         </mat-action-row>
-        <p>
-        <button mat-raised-button color="primary" (click)="addProperty()">Add Property</button> 
-        </p>
         </mat-expansion-panel>
+        </div>
     </table>
     </mat-accordion>
 </form></mat-card>

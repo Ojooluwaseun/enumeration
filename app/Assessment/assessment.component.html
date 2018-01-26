@@ -1,0 +1,148 @@
+<mat-card style="background-color:#787878"><form class="formwidth"  #assetForm="ngForm">
+    <mat-accordion>
+    <table class="fullwidth" cellspacing="0">
+    <div *ngIf = "!assessmentService.id">
+    <mat-expansion-panel class="panelwidth" style="background-color:#e1e2dc" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+    <mat-expansion-panel-header>
+    <mat-panel-title><h3><span class="glyphicon glyphicon-book"></span>Create Assessment</h3></mat-panel-title>
+    </mat-expansion-panel-header>
+    <tr>
+        <td>
+            <mat-form-field class="fullwidth">
+                <input matInput type="number" placeholder="Asset ID"  id="assetid" [(ngModel)]="assetdata.assetid" (blur)="getAsset()" name="assetid">
+            </mat-form-field>
+        </td>
+    </tr>
+    <div *ngIf="assetService.ownerid">
+    <tr>
+        <td><h5><strong>OWNER'S TIN:</strong> {{assetService.ownerid}}</h5></td> 
+    </tr>
+    <tr>
+        <td><h5><strong>ASSET TYPE:</strong> {{assetService.type}}</h5></td>
+        <td><h5><strong>LGA:</strong> {{assetService.lga}}</h5></td>
+    </tr>
+    <tr>
+       
+        <td><h5><strong>WARD:</strong> {{assetService.ward}}</h5></td>
+        <td><h5><strong>TOWN:</strong> {{assetService.town}}</h5></td> 
+    </tr>
+    </div>
+    <tr>
+        <td>
+            <mat-form-field class="fullwidth">
+                <input matInput type="text" placeholder="Revenue Stream"  id="revstream" [(ngModel)]="assessmentdata.revstream" name="revstream">
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="fullwidth">
+                <mat-select placeholder="--Select Agency--" [(ngModel)]="assessmentdata.agency" name='agency'>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let mda of mdas" [value]="mda">{{mda}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </td>
+    </tr>
+    <tr>
+       <td>
+            <mat-form-field class="fullwidth">
+                <input matInput type="number" placeholder="Payment Frequency"  id="payfrequency" [(ngModel)]="assessmentdata.payfrequency" name="payfrequency">
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="fullwidth">
+                <input matInput type="text" placeholder="Settlement Method"  id="settlemethod" [(ngModel)]="assessmentdata.settlemethod" name="settlemethod">
+            </mat-form-field>
+        </td>
+    </tr>
+     
+    <tr>
+        <td>
+        <mat-form-field class="fullwidth">
+            <mat-select placeholder="--Select Revenue Item--" name='itemcat' [(ngModel)]="assessmentdata.itemcat">
+                <mat-option *ngFor="let rev of revitems | async"  [value]="rev">{{rev.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="fullwidth">
+                <input matInput type="text" placeholder="Item Category"  id="itemcategory" [(ngModel)]="assessmentdata.itemcategory" name="itemcategory">
+            </mat-form-field>
+        </td>
+    </tr>
+    <div>
+         <button mat-raised-button color="primary" (click)="genAssess(nextStep())">Generate Assessment</button>
+    </div>
+    </mat-expansion-panel>
+    </div>
+    </table>
+    <div *ngIf = "assessmentService.id">
+    <mat-expansion-panel class="panelwidth" style="background-color:#e6e8f7" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title><h3><span class="glyphicon glyphicon-bitcoin"></span> Assessment Details</h3></mat-panel-title>
+            </mat-expansion-panel-header>
+                <table>
+                     <tr>
+                        <td><h3> <strong>Owner's TIN: </strong>{{assessmentService.ownerid}}</h3></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Agency: </strong>{{assessmentService.agency}}</h5></td>
+                        <td><h5> <strong>Item: </strong>{{assessmentService.itemname}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Amount: </strong>{{assessmentService.itemamount}}</h5></td>
+                        <td><h5> <strong>Payment Frequency: </strong>{{assessmentService.payfrequency}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Item Category: </strong>{{assessmentService.itemcategory}}</h5></td>
+                        <td><h5> <strong>Status: </strong>{{assessmentService.status}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Start Date: </strong>{{assessmentService.startdayOfWeek}} {{assessmentService.startdayOfMonth}} {{assessmentService.startmonth}} {{assessmentService.startyear}}</h5></td>
+                         <td><h5> <strong>Due Date: </strong>{{assessmentService.duedayOfWeek}} {{assessmentService.duedayOfMonth}} {{assessmentService.duemonth}} {{assessmentService.dueyear}}</h5></td>
+                    </tr>
+                    
+                </table>
+            <div>
+                <button mat-raised-button color="accent" (click)="createBill(nextStep())">Generate Bill</button>
+            </div>
+        </mat-expansion-panel>
+        </div>
+        <div *ngIf = "assessmentService.billid">
+        <mat-expansion-panel class="panelwidth" style="background-color:#e6e8f7" [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title><h3><span class="glyphicon glyphicon-bitcoin"></span> Bill Details</h3></mat-panel-title>
+            </mat-expansion-panel-header>
+                <table>
+                     <tr>
+                        <td><h4> <strong>Bill Reference No: </strong>{{assessmentService.billrefno}}</h4></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Owner's TIN: </strong>{{assessmentService.billowner}}</h5></td>
+                        <td><h5> <strong>Item: </strong>{{assessmentService.billitemcategory}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Item Amount: </strong>{{assessmentService.item_amount}}</h5></td>
+                        <td><h5> <strong>Payment Frequency: </strong>{{assessmentService.billpayfrequency}}</h5></td>
+                    </tr>
+                     <tr>
+                        <td><h5> <strong>Bill Start Date: </strong>{{assessmentService.billstartdayOfWeek}} {{assessmentService.billstartdayOfMonth}} {{assessmentService.billstartmonth}} {{assessmentService.billstartyear}}</h5></td>
+                        <td><h5> <strong>Due Date: </strong>{{assessmentService.billduedayOfWeek}} {{assessmentService.billduedayOfMonth}} {{assessmentService.billduemonth}} {{assessmentService.billdueyear}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Previous Balance: </strong>{{assessmentService.previous_bal}}</h5></td>                        
+                        <td><h5> <strong>Current Amount: </strong>{{assessmentService.current_amount}}</h5></td>
+                        
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Total: </strong>{{assessmentService.total}}</h5></td>
+                        <td><h5> <strong>Bill Status: </strong>{{assessmentService.billstatus}}</h5></td>
+                    </tr>
+                   
+                    
+                </table>
+           
+        </mat-expansion-panel>
+        </div>
+    </mat-accordion>
+</form>
+</mat-card>

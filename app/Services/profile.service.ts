@@ -14,6 +14,11 @@ export class ProfileService {
 
   profile_id : number
   asset_id : number
+  name: string;
+  type: string;
+  metric: string;
+  frequency: number;
+  value: number;
 
   constructor( private http: HttpClient) { }
 
@@ -28,7 +33,7 @@ export class ProfileService {
     let body = JSON.parse(JSON.stringify({"name": profiledata.name,"type": profiledata.type,"metric":profiledata.metric, "frequency":profiledata.frequency,"value": profiledata.value
     }))
     const req = this.http.post<Profile>(header,body)
-    .subscribe(res => this.profile_id = res.id);
+    .subscribe(res => {this.profile_id = res.id; this.type = res.type; this.name = res.name; this.metric = res.metric; this.frequency = res.frequency; this.value = res.value; console.log(res)});
   }
 
    addProperty(profilepropertydata: ProfilePropertyData) {

@@ -1,8 +1,9 @@
 
-<mat-card><form class="formwidth"  #payerForm="ngForm">
-    <mat-accordion>
+<mat-card style="background-color:#787878"><form class="formwidth" #payerForm="ngForm">
+    <mat-accordion >
     <table class="fullwidth" cellspacing="0">
-        <mat-expansion-panel  class="panelwidth" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+        <div *ngIf = "!payerService.tin">
+        <mat-expansion-panel  class="panelwidth" style="background-color:#e1e2dc" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
         <mat-expansion-panel-header>
         <mat-panel-title><h3><span class="glyphicon glyphicon-user"></span> Personal Details</h3></mat-panel-title>
         </mat-expansion-panel-header>
@@ -20,11 +21,6 @@
             <td>
                 <mat-form-field class="fullwidth">
                     <input matInput type="text" placeholder="Middle Name"  id="middlename" [(ngModel)]="payerdata.middlename" name="middlename">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Othername"  id="othername" [(ngModel)]="payerdata.othername" name="othername">
                 </mat-form-field>
             </td>
         </tr>
@@ -132,61 +128,83 @@
                 </mat-form-field>
             </td>
         </tr>
-        <mat-action-row>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-        </mat-action-row>
-    </mat-expansion-panel>
-    </table>
-    <table  class="fullwidth" cellspacing="0">
-        <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-        <mat-expansion-panel-header>
-        <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span> Address</h3></mat-panel-title>
-        </mat-expansion-panel-header>
+        <h3><span class="glyphicon glyphicon-map-marker"></span> Address</h3>
         <tr>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="House Number"  id="house_no" [(ngModel)]="payerdata.house_no" name="house_no">
+                    <input matInput type="text" placeholder="House Number"  id="house_no" [(ngModel)]="payerdata.houseNo" name="house_no">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Plot Number"  id="plot_no" [(ngModel)]="payerdata.plot_no" name="plot_no">
+                    <input matInput type="text" placeholder="Plot Number"  id="plot_no" [(ngModel)]="payerdata.plotNo" name="plot_no">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Block Number"  id="block_no" [(ngModel)]="payerdata.block_no" name="block_no">
+                    <input matInput type="text" placeholder="Block Number"  id="block_no" [(ngModel)]="payerdata.blockNo" name="block_no">
                 </mat-form-field>
             </td>
-            <td>
-                <mat-form-field class="fullwidth">
-                    <input matInput type="text" placeholder="Flat Number"  id="flat_no" [(ngModel)]="payerdata.flat_no" name="flat_no">
-                </mat-form-field>
-            </td>
+            
         </tr>
         <tr>
             <td>
                 <mat-form-field class="fullwidth">
-                    <textarea matInput type="text" placeholder="Street Name"  id="street_name" [(ngModel)]="payerdata.street_name" name="street_name"></textarea>
+                    <input matInput type="text" placeholder="Flat Number"  id="flat_no" [(ngModel)]="payerdata.flatNo" name="flat_no">
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field class="fullwidth">
-                    <textarea matInput placeholder="District Name"  id="district_name" [(ngModel)]="payerdata.district_name" name="district_name"></textarea>
+                    <textarea matInput type="text" placeholder="Street Name"  id="street_name" [(ngModel)]="payerdata.streetName" name="street_name"></textarea>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <textarea matInput placeholder="District Name"  id="district_name" [(ngModel)]="payerdata.districtName" name="district_name"></textarea>
                 </mat-form-field>
             </td>
 
 
         </tr>
         <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">End</button>
+            <button mat-raised-button color="primary" (click)="onSubmit(nextStep())">Submit</button>
         </mat-action-row>
         </mat-expansion-panel>
-    </table>
-    <p>
-        <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button> 
-    </p>
+        </div>
+        </table>
+        <div *ngIf = "payerService.tin">
+        <mat-expansion-panel class="panelwidth" style="background-color:#e6e8f7" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title><h3><span class="glyphicon glyphicon-user"></span> Payer Details</h3></mat-panel-title>
+            </mat-expansion-panel-header>
+            
+                <table>
+                    <tr><h3> <strong>TIN: </strong>{{payerService.tin}}</h3></tr>
+                    <tr>
+                        <td><h5> <strong>Firstname: </strong>{{payerService.firstname}}</h5></td>
+                        <td><h5> <strong>Middlename: </strong>{{payerService.middlename}}</h5></td>
+                        <td><h5> <strong>Surname: </strong>{{payerService.surname}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Phone: </strong>{{payerService.phone}}</h5></td>
+                        <td><h5> <strong>Email: </strong>{{payerService.email}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Gender: </strong>{{payerService.gender}}</h5></td>
+                        <td><h5> <strong>Date of Birth: </strong>{{payerService.dob}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>Marital Status: </strong>{{payerService.maritalstatus}}</h5></td>
+                        <td><h5> <strong>Occupation: </strong>{{payerService.occupation}}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5> <strong>State of Origin: </strong>{{payerService.stateoforigin}}</h5></td>
+                        <td><h5> <strong>LGA: </strong>{{payerService.lgaoforigin}}</h5></td>
+                    </tr>
+                    
+                </table>
+        </mat-expansion-panel>
+        </div>
     </mat-accordion>
 </form></mat-card>
  

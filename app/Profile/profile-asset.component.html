@@ -1,0 +1,81 @@
+<mat-card style="background-color:#787878"><form class="formwidth"  #assetForm="ngForm">
+    <mat-accordion>
+    <table class="fullwidth" cellspacing="0">
+    <mat-expansion-panel class="panelwidth" style="background-color:#e1e2dc" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+    <mat-expansion-panel-header>
+    <mat-panel-title><h3><span class="glyphicon glyphicon-home"></span> Profile Asset</h3></mat-panel-title>
+    </mat-expansion-panel-header>
+    <tr>
+        <td>
+        <mat-form-field class="fullwidth">
+            <input matInput type="number" placeholder="Asset ID"  id="assetid" [(ngModel)]="assetdata.assetid" name="assetid">
+        </mat-form-field>
+        </td>
+        <td>
+            <button mat-raised-button color="primary" (click)="getAsset()">Get Asset</button>
+        </td>
+    </tr>
+    
+    <tr *ngFor="let d of data | async">  
+        <div *ngIf="d.id == assetdata.assetid">
+                <h3> Asset Details</h3>
+                <tr>
+                    <td><h5><strong>OWNER'S TIN:</strong> {{d.ownerid}}</h5></td>
+                    <td><h5><strong>ASSET TYPE:</strong> {{d.type}}</h5></td> 
+                </tr>
+                <tr>
+                    <td><h5><strong>LGA:</strong> {{d.lga}}</h5></td>
+                    <td><h5><strong>WARD:</strong> {{d.ward}}</h5></td> 
+                </tr>
+                <tr>
+                    <td><h5><strong>Building Type:</strong> {{assetService.building_type}}</h5></td>
+                    <td><h5><strong>Registered Date:</strong> {{assetService.registered_date}}</h5></td>
+                </tr>
+                
+                <mat-form-field class="fullwidth">
+                    <mat-select placeholder="--Select Profiles--" name='profiles' [(ngModel)]="assetdata.profile" multiple>
+                        <div *ngIf = "d.type == 'BUILDING'">
+                            <mat-option *ngFor="let p of profiles | async"  [value]="p">{{p.id}}/{{p.name}}</mat-option>
+                        </div>   
+                        <div *ngIf = "d.type == 'BUSINESS'">
+                            <mat-option *ngFor="let p of pro | async"  [value]="p">{{p.id}}/{{p.name}}</mat-option>
+                        </div>      
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="addAssetProfile()">Add Profile(s)</button>
+        </div>
+        
+    </tr>
+    
+    </mat-expansion-panel>
+    </table>
+    <!--<table  class="fullwidth" cellspacing="0">
+            <mat-expansion-panel class="panelwidth" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+            <mat-expansion-panel-header>
+            <mat-panel-title><h3><span class="glyphicon glyphicon-map-marker"></span>Profile Asset</h3></mat-panel-title>
+            </mat-expansion-panel-header>
+            <tr>
+                <td>
+                    <mat-form-field class="fullwidth">
+                        <mat-select placeholder="--Select Profiles--" name='profiles' [(ngModel)]="assetdata.profile" multiple>
+                            <div *ngIf = "d.type == 'BUILDING'">
+                                <mat-option *ngFor="let p of profiles | async"  [value]="p">{{p.id}}/{{p.name}}</mat-option>
+                            </div>   
+                            <div *ngIf = "d.type == 'BUSINESS'">
+                                <mat-option *ngFor="let p of pro | async"  [value]="p">{{p.id}}/{{p.name}}</mat-option>
+                            </div>      
+                            <mat-option *ngFor="let p of profiles | async"  [value]="p">{{p.id}}/{{p.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>   
+
+            </tr>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button-raised color="primary" (click)="addAssetProfile()">Add Profile</button>
+            </mat-action-row>
+            </mat-expansion-panel>
+            </table>-->
+    </mat-accordion>
+</form>
+</mat-card>

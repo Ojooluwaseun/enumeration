@@ -6,6 +6,7 @@ import { BusinessService } from '../Services/business.service';
 import { PayerService } from '../Services/payer.service';
 import { Observable } from 'rxjs/Observable';
 import { PayerData, Payer } from '../payer-data';
+import { Profile } from '../profile-data';
 
 
 @Component({
@@ -18,7 +19,8 @@ import { PayerData, Payer } from '../payer-data';
 export class BusinessComponent implements OnInit {
   step = 0;
   businessdata = new BusinessData;
-  data:  Observable<Payer[]>
+  profiles: Observable<Profile[]>
+  profile_ids = []
 
   lgas = this.businessdata.lgas
   
@@ -37,19 +39,32 @@ export class BusinessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data =  this.payerService.getPayerbyTin(this.businessdata.ownerid);
-    console.log(this.data)
-    this.businessService.getProfile()
+    this.profiles = this.businessService.getProfile();
+    console.log(this.profiles)
+
   }
  
    
-  ngOnChanges(){
+  getPayer(){
+    this.payerService.getPayerbyTin(this.businessdata.ownerid)
 
   }
   
 
   onSubmit(){
-    return this.businessService.addBusiness(this.businessdata)
+    this.businessdata.reg_date = this.businessdata.registered_date.getFullYear() 
+    + '-' + ('0' + (this.businessdata.registered_date.getMonth()+1)).slice(-2) 
+    + '-' + ('0' + this.businessdata.registered_date.getDate()).slice(-2);
+    
+    this.businessService.addBusiness(this.businessdata)
+   
+  }
+
+  addAssetProfile(){
+    for  ( var i in this.businessdata.profile) {
+    this.profile_ids.push(this.businessdata.profile[i].id)
+    }
+    this.businessService.addProfile(this.profile_ids)
   }
 
   };
